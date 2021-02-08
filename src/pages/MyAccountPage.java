@@ -41,7 +41,7 @@ public class MyAccountPage {
 	}
 
 	public WebElement getLogOutButton() {
-		return driver.findElement(By.className("woocommerce-MyAccount-navigation-link--customer-logout"));
+		return driver.findElement(By.xpath("//*[@id=\"post-10\"]/div/div/nav/ul/li[6]/a"));
 	}
 
 	public void insertUsername(String username) {
@@ -60,6 +60,12 @@ public class MyAccountPage {
 	
 	public void assertSuccessfulLogin() {
 		Assert.assertEquals(true, this.getLogOutButton().isDisplayed());
+	}
+	public void logOutButtonClick() {
+		this.getLogOutButton().click();
+	}
+	public void assertSuccessfulLogout() {
+		Assert.assertEquals(true, this.getLogInButton().isDisplayed());
 	}
 
 }
