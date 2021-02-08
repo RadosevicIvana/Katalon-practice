@@ -1,6 +1,7 @@
 package tests;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.WebDriver;
@@ -31,10 +32,11 @@ public class TestBase {
 		this.driver = new ChromeDriver();
 		this.myAccountPage = new MyAccountPage(driver);
 		this.homePage = new HomePage(driver);
-		this.excelReader= new ExcelReader("data/TestPlan.xlsx");
+		this.excelReader= new ExcelReader("Data/Katalon data.xlsx");
 		this.shopPage = new ShopPage(driver); 
 		this.cartPage = new CartPage(driver);
 
+		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 	}
 	
