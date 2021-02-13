@@ -1,11 +1,8 @@
 package pages;
 
-
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 
 public class MyAccountPage {
 
@@ -54,18 +51,13 @@ public class MyAccountPage {
 		this.getPasswordInputField().sendKeys(password);
 
 	}
+
 	public void loginButtonClick() {
 		this.getLogInButton().click();
 	}
-	
-	public void assertSuccessfulLogin() {
-		Assert.assertEquals(true, this.getLogOutButton().isDisplayed());
-	}
+
 	public void logOutButtonClick() {
 		this.getLogOutButton().click();
-	}
-	public void assertSuccessfulLogout() {
-		Assert.assertEquals(true, this.getLogInButton().isDisplayed());
 	}
 
 }

@@ -1,5 +1,6 @@
 package tests;
 
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -7,7 +8,7 @@ import org.testng.annotations.Test;
 public class LoginTests extends TestBase {
 
 	@BeforeMethod
-	public void setup(){
+	public void setup() {
 		driver.navigate().to("http://cms.demo.katalon.com/");
 	}
 
@@ -20,7 +21,7 @@ public class LoginTests extends TestBase {
 		myAccountPage.insertUsername(username);
 		myAccountPage.insertPassword(password);
 		myAccountPage.loginButtonClick();
-		myAccountPage.assertSuccessfulLogin();
+		Assert.assertEquals(true, myAccountPage.getLogOutButton().isDisplayed());
 
 	}
 
@@ -32,7 +33,7 @@ public class LoginTests extends TestBase {
 		myAccountPage.insertUsername(username);
 		myAccountPage.insertPassword(password);
 		myAccountPage.loginButtonClick();
-		excelReader.asserting("WrongCredentials", 2, 3, myAccountPage.getErrorCredentialsLabel().getText());
+		Assert.assertEquals(true, myAccountPage.getErrorCredentialsLabel().isDisplayed());
 	}
 
 	@Test(priority = 4)
@@ -43,7 +44,7 @@ public class LoginTests extends TestBase {
 		myAccountPage.insertUsername(username);
 		myAccountPage.insertPassword(password);
 		myAccountPage.loginButtonClick();
-		excelReader.asserting("WrongPassword", 2, 3, myAccountPage.getErrorCredentialsLabel().getText());
+		Assert.assertEquals(true, myAccountPage.getErrorCredentialsLabel().isDisplayed());
 	}
 
 	@Test(priority = 6)
@@ -54,7 +55,7 @@ public class LoginTests extends TestBase {
 		myAccountPage.insertUsername(username);
 		myAccountPage.insertPassword(password);
 		myAccountPage.loginButtonClick();
-		excelReader.asserting("WrongUsername", 2, 3, myAccountPage.getErrorCredentialsLabel().getText());
+		Assert.assertEquals(true, myAccountPage.getErrorCredentialsLabel().isDisplayed());
 	}
 
 	@Test(priority = 8)
@@ -63,14 +64,14 @@ public class LoginTests extends TestBase {
 		myAccountPage.getUsernameInputField().clear();
 		myAccountPage.getPasswordInputField().clear();
 		myAccountPage.loginButtonClick();
-		excelReader.asserting("NoInput", 2, 3, myAccountPage.getErrorCredentialsLabel().getText());
+		Assert.assertEquals(true, myAccountPage.getErrorCredentialsLabel().isDisplayed());
 	}
 
 	@Test(priority = 10)
 	public void logOutConfirmation() throws InterruptedException {
 		successfulLogin();
 		myAccountPage.logOutButtonClick();
-		myAccountPage.assertSuccessfulLogout();
+		Assert.assertEquals(true, myAccountPage.getLogInButton().isDisplayed());
 	}
 
 	@AfterMethod

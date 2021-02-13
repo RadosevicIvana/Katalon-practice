@@ -1,6 +1,7 @@
 package tests;
 
 import org.openqa.selenium.Cookie;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -17,21 +18,42 @@ public class ProductsTests extends TestBase {
 
 	@Test(priority = 0)
 	public void addToCartOneProduct() {
-
+		shopPage.addproduct1toCart();
+		homePage.cartTabClick();
+		excelReader.asserting("Products", 1, 1, cartPage.getProduct1Label().getText());
 	}
 
 	@Test(priority = 2)
 	public void deleteFromCartAddedProduct() {
+		addToCartOneProduct();
+		cartPage.deleteButtonClick();
+		Assert.assertEquals(true, cartPage.getCartEmptyLabel().isDisplayed());
 
 	}
 
 	@Test(priority = 4)
 	public void addThreeProducts() {
+		shopPage.addproduct1toCart();
+		shopPage.addproduct2toCart();
+		shopPage.addproduct3toCart();
+		homePage.cartTabClick();
 
+		excelReader.asserting("Products", 1, 1, cartPage.getProduct1Label().getText());
+		excelReader.asserting("Products", 1, 2, cartPage.getProduct2Label().getText());
+		excelReader.asserting("Products", 1, 3, cartPage.getProduct3Label().getText());
+
+		excelReader.asserting("Products", 2, 1, cartPage.getProduct1Price().getText());
+		excelReader.asserting("Products", 2, 2, cartPage.getProduct2Price().getText());
+		excelReader.asserting("Products", 2, 3, cartPage.getProduct3Price().getText());
 	}
 
 	@Test(priority = 6)
 	public void addToCartTwoItemsAndDeleteOne() {
+		shopPage.addproduct1toCart();
+		shopPage.addproduct2toCart();
+		homePage.cartTabClick();
+		cartPage.deleteButtonClick();
+		excelReader.asserting("Products", 3, 1, cartPage.getItemRemovedLabel().getText());
 
 	}
 
